@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "this" {
-  bucket = var.bucket_name
+  bucket = "${var.env}-${var.bucket_name}-s3-bucket"
 
   tags = {
-    Name        = "${var.bucket_name}-s3-bucket"
-    Environment = var.env_name
+    Name        = "${var.env}-s3-bucket"
+    Environment = var.env
   }
 }
 

@@ -9,14 +9,19 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
   }
 }
 
-resource "aws_iam_role" "instance" {
-  name               = "instance_role"
+resource "aws_iam_role" "this" {
+  name               = "${var.env}-s3-${var.role_name}-iam-role"
   path               = "/system/"
   assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
 }
 
+resource "aws_iam_instance_profile" "this" {
+  name = "${var.env}-s3-${var.role_name}-instance-profile"
+  role = aws_iam_role.this.name
+}
+
 resource "aws_iam_policy_attachment" "s3_read_only" {
-  name       = "s3_read_only"
-  roles      = [aws_iam_role.instance.name]
+  name       = "${var.env}-s3-${var.role_name}-policy-attachment"
+  roles      = [aws_iam_role.this.name]
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }   
