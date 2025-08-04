@@ -51,3 +51,19 @@ output "ec2_security_group_id" {
   description = "ID of the security group for EC2 instances"
   value       = module.compute.security_group_id
 }
+
+# EKS module outputs
+output "eks_cluster_name" {
+  description = "Name of the EKS cluster"
+  value       = module.eks.cluster_name
+}
+
+output "eks_cluster_endpoint" {
+  description = "EKS cluster endpoint"
+  value       = module.eks.cluster_endpoint
+}
+
+output "eks_cluster_arn" {
+  description = "EKS cluster ARN"
+  value       = module.eks.cluster_arn
+}

@@ -39,3 +39,13 @@ module "compute" {
 
     iam_instance_profile = module.iam.instance_profile_name
 }
+
+module "eks" {
+    source = "../modules/eks"
+
+    env              = "staging"
+    eks_name         = "demo"
+    vpc_id           = module.vpc.vpc_id
+    vpc_cidr_block   = "10.0.0.0/16"
+    private_subnets  = module.vpc.private_subnets
+}
